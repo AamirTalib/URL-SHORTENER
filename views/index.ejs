@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #343a40;
+            color: #fff; 
+        }
+        .table {
+            background-color: #fff;
+            color:black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mt-3 mb-4">URL Shortener</h1>
+        <form action="/shortUrls" method="POST" class="g-4 form-inline">
+            <label for="fullURL" class="sr-only">Url</label>
+            <input required placeholder="Enter URL..." type="url" 
+            name="fullUrl" id="fullUrl" class="form-control col ms-2">
+            <button class="btn btn-success" type="submit">Shorten</button>
+        </form>
+
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Full URL</th>
+                    <th>Short URL</th>
+                    <th>Clicks</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% shortUrls.forEach(shortUrl => { %>
+                    <tr>
+                        <td><a href="<%= shortUrl.full %>">
+                            <%= shortUrl.full %></a></td>
+                        <td><a href="<%= shortUrl.short %>"><%= 
+                        shortUrl.short %></a></td>
+                        <td><%= shortUrl.clicks %></td>
+                        <td>
+                            <form action="/deleteShortUrl/<%= shortUrl._id %>" method="POST">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
